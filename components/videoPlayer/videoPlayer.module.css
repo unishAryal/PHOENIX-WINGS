@@ -1,0 +1,10 @@
+.mainVideo{
+    background-color: red;
+    height: 20px;
+    width: 20px;
+}
+.actualVideo{
+    height: 400px;
+    width: 400px;
+    background-color: blue;
+}
