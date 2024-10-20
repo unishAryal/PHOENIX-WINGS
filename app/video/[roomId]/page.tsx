@@ -30,7 +30,7 @@ const Room = () => {
     const handleUserConnected = (newUser: string) => {
       console.log("user connected with userId", newUser);
 
-      const call = peer?.call(newUser, stream);
+      const call = peer?.call(newUser, stream );
 
       call.on("stream", (incomingStream) => {
         console.log("Incoming stream from someOne", incomingStream);
@@ -140,5 +140,4 @@ const Room = () => {
 
 export default Room;
 
-// to actually set the reactPlayer you need to download the following:
-// npm install react-player
+// reactPlayer is being used to play a video.
