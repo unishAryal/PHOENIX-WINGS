@@ -1,0 +1,32 @@
+.mainBox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.box {
+
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    height: 80%;
+    /* padding-left: 10%; */
+    background-color: rgb(139, 155, 155);
+    align-items: center;
+    justify-content: center;
+    margin-top: 10%;
+    border-radius: 1rem;
+    padding: 2rem;
+}
+.inputContainer{
+    
+    height: 10%;
+    margin : 2rem;
+    padding : 1rem;
+    border-radius: 0.3rem;
+    width: 17rem;
+}
+.buttons{
+    padding: 0.5rem;
+    border-radius : 0.3rem;
+}

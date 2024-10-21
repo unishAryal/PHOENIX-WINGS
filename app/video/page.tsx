@@ -2,6 +2,7 @@
 import {useState} from 'react';
 import {v4 as uuidv4} from 'uuid';
 import {useRouter} from 'next/navigation';
+import styles from "@/styles/lobby.module.css";
 
 const video = () => {
     const [roomId, setRoomId] = useState('');
@@ -21,16 +22,29 @@ const video = () => {
         console.log('there is an error getting a roomId')}
    }
   return (
-    <div>
+    <div className= {styles.mainBox}>
+    <div className= {styles.heading}>
         <h1> Wylight Technology</h1>
-        <button  onClick={createRoom}>
+    </div>
+
+        
+     <div className= {styles.box}>
+
+        <input className = {styles.inputContainer} placeholder='Enter the Room ID' value = {roomId} onChange={(e) =>setRoomId(e?.target?.value)}/>  
+
+        <button  className = {styles.buttons}onClick= {joinRoom}>
+            Join Room
+        </button>
+        <span>Or</span>  
+        <button className = {styles.buttons} onClick={createRoom}>
             Create Meeting
         </button>
 
-        <input placeholder='Enter the Room ID' value = {roomId} onChange={(e) =>setRoomId(e?.target?.value)}/>
-        <button onClick= {joinRoom}>
-            Join Room
-        </button>
+        
+        
+     
+     
+    </div>
     </div>
   )
 }

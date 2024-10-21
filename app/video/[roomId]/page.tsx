@@ -16,16 +16,18 @@ import {
   faPhoneSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "@/styles/video.module.css";
+import { useParams } from "next/navigation";
 
 const Room = () => {
   const { socket } = useSocket();
+  const {roomId} = useParams().roomId;
   const { peer, myId } = usePeer();
   const { stream } = userMediaStream();
   // setPlayers will be the object
-  const { videoPlayers: players, setVideoPlayers: setPlayers } =
-    useVideoPlayer();
+  const { players,  setPlayers } =
+    useVideoPlayer(myId, roomId);
 
-  useEffect(() => {
+  useEffect(() => { 
     if (!socket || !peer) return;
     const handleUserConnected = (newUser: string) => {
       console.log("user connected with userId", newUser);
@@ -94,11 +96,12 @@ const Room = () => {
     <div className={styles.mainBox}>
       <div className={styles.videoBox}>
         <div className={styles.group}>
-          {Object.keys(players).map((playerId) => {
+          {Object.keys(players).map((playerId ) => {
             const { url, muted, playing } = players[playerId];
             return (
               <div className={styles.videoComponent}>
                 <VideoPlayer
+                  key = {playerId}
                   url={url}
                   muted={muted}
                   playing={playing}

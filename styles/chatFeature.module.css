@@ -1,0 +1,441 @@
+.Box {
+    display: flex;
+    
+    padding: 1rem;
+    background: rgb(241, 233, 233);
+    justify-content: center;
+    align-items: center;
+    color: #121212;
+    
+  }
+  
+  
+  .chatBox {
+    flex: 1 0 auto; 
+    padding: 0.1rem 1rem;
+   
+  }
+  .chatFilterBox{
+    padding: 1.5rem 1.5rem;
+    flex: 25% 0 1;
+    border-right: solid 0.1rem #2727277a;
+    justify-content: center;
+    align-items: center;
+  
+  }
+  
+  /* #chatFilterBox {
+    flex: 220px 0 1;
+    border-right: solid 1px #2727277a;
+  } */
+  
+  #chatBox {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    /* background: blue; */
+    position: relative;
+    
+  }
+  
+  .messageBox {
+    
+    /* margin-bottom: 1rem;  */
+    height: 80%;
+    border: solid 1px #2727277a;
+    padding: 20px;
+    border-radius: 15px;
+    
+    
+  }
+  
+  .inputBox {
+    /* border-top: solid 0.12rem #2727277a; */
+    display: flex; 
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem; 
+    padding:  1rem;
+   
+  
+    /* width: 100%; */
+  }
+  
+  .innerBox {
+    display: flex;
+    width:97vw;
+    border: solid 0.1rem #000;
+    border-radius: 1.2%;
+    overflow: hidden;
+    height:90vh;
+    background-color: white;
+  }
+  
+  #userMessage {
+    border: none;
+    outline: none;
+    background: none;
+    border: solid 0.12rem #2727277a;
+    border-radius: 2.12rem;
+    padding: 1rem 1.3rem;
+    width: 88%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height:20%;
+    transition: 0.3s;
+    overflow: hidden;
+    
+    
+  }
+  #userMessage:hover {
+    border: none;
+    outline: none;
+    background: none;
+    border: solid 1px #2727277a;
+    border-radius: 15px;
+    padding: 10px 15px;
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height:95%;
+    
+  }
+  
+  /* .sendButton {
+    /* border: none;
+    outline: none;
+    border-radius: 50px;
+    padding: 1.75rem 1.5rem;
+    border: none;
+    outline: none; */
+    
+    /* padding: 1.75rem 1.5rem; */
+    /* margin-left: 10px; */
+    /* background-color: brown;
+    height: 0%;
+    padding-bottom: 5%;
+    width: 1%;
+  } */ 
+    
+    
+    
+  /* button {
+      border: none;
+      outline: none;
+      border-radius: 20px;
+      padding: 1.75rem 1.5rem;
+      
+      margin-left: 10px;
+  } */
+  .planeButton{
+    background-color:white;
+    font-size: 1.75rem;
+    margin: 0rem 0rem;
+    padding: 0rem 0rem;
+    border: none;
+    background-color: white;
+    
+    }
+  
+  .planeButton:hover{
+    background-color:white;
+    font-size: 1.75rem;
+    margin: 0rem 0rem;
+    padding: 0rem 0rem;
+    border: none;
+    background-color: white;
+    box-shadow : 0.8vw 0.9vw 1vw rgba(0,0,0, 0.1);
+    }
+  
+  .actualMessage {
+    background: rgba(211, 208, 208, 0.533);
+    -webkit-filter: blur(3px);
+    filter: blur(0.5px);
+    border-radius: 3vw; 
+    box-shadow:  0.8vw 0.9vw 1vw rgba(0,0,0, 0.1); 
+    width: auto;
+    height: auto;
+    padding-left: 1vw;  
+    padding-right: 1vw; 
+    
+    display:inline-block;
+    text-align: center;
+    border: .5px solid rgb(90, 81, 81);
+  }
+  .uploadIcon{
+    font-weight: bold;
+    font-size: 1.25rem;
+    border-radius: 40%;
+  }
+  .uploadIcon:hover{
+    font-weight: bold;
+    font-size: 1.352rem;
+    border-radius: 40%;
+  }
+  .fileDetails{
+    font-size: 1%;
+    background-color: #fff;
+    color: #121212;
+    height: 2rem;
+    width: 4rem;
+  }
+  
+  .dropDown {
+    position: relative;
+    display: inline-block;
+    position: relative;
+    display: inline-block;
+    width: 90%;
+    text-align: center;
+  }
+  
+  .dropDownContent {
+    display: none;
+    position: absolute;
+    
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    /* padding: 12px 16px; */
+    z-index: 1;
+    padding: 1rem;
+    background-color:azure;
+    
+    
+    
+  }
+  
+  .dropDown:hover .dropDownContent {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: auto;
+    width: 60%;
+    margin-left: 4rem;
+  
+  
+  }
+  .favoritesDropDown:hover{
+    font-weight: bold;
+  }
+  
+  .dropDownElement{
+    border-bottom: solid 1px black;
+    padding: 1rem;
+    text-align: center;
+    transition: 0.3s;
+    
+  }
+  .dropDownElement:hover{
+    border-bottom: solid 2px rgb(99, 97, 97);
+    font-weight: bold;
+  }
+  
+  @media(max-width:600px){
+  
+  
+  
+  
+    .Box {
+      display: flex;
+      
+      padding: 1rem;
+      background: rgba(198, 6, 6, 0.358);
+      justify-content: center;
+      align-items: center;
+      color: #121212;
+      padding-bottom: 2rem;
+      
+      
+    }
+    
+    
+    .chatBox {
+      flex: 1 0 auto; 
+      padding: 0.1rem 1rem;
+     
+    }
+    .chatFilterBox{
+      padding: 0.5rem 0.5rem;
+      flex:1;
+      border-right: solid 0.1rem #2727277a;
+      width: 5rem;
+      background-color: red;
+    }
+    
+    /* #chatFilterBox {
+      flex: 220px 0 1;
+      border-right: solid 1px #2727277a;
+    } */
+    
+    #chatBox {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      /* background: blue; */
+      position: relative;
+      padding-bottom:2rem;
+      
+      width: 10rem;
+    }
+    
+    .messageBox {
+      
+      /* margin-bottom: 1rem;  */
+      height: 700px;
+      border: solid 1px #2727277a;
+      padding: 1rem;
+      margin-top: 1rem;
+      
+      border-radius: 15px;
+      
+      
+      
+    }
+    
+    .inputBox {
+      /* border-top: solid 0.12rem #2727277a; */
+      display: flex; 
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem; 
+      width: 95.5%;
+      overflow-y: auto;
+    
+      
+     
+    
+      /* width: 100%; */
+    }
+  
+    .innerBox {
+      display: flex;
+      width:97vw;
+      height: 50vh;
+      border: solid 0.1rem #000;
+      border-radius: 1.2%;
+      overflow: hidden;
+      height:90vh;
+      background-color: white;
+      margin-bottom: 1em;
+      padding: 0;
+    }
+    
+    #userMessage {
+      border: none;
+      outline: none;
+      background: none;
+      border: solid 0.12rem #2727277a;
+      border-radius: 2.12rem;
+      padding: 1rem 1.3rem;
+      width: 88%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height:20%;
+      transition: 0.3s;
+      overflow: hidden;
+      
+      
+    }
+    #userMessage:hover {
+      border: none;
+      outline: none;
+      background: none;
+      border: solid 1px #2727277a;
+      border-radius: 15px;
+      padding: 10px 15px;
+      width: 95%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height:95%;
+      
+    }
+    
+    /* .sendButton {
+      /* border: none;
+      outline: none;
+      border-radius: 50px;
+      padding: 1.75rem 1.5rem;
+      border: none;
+      outline: none; */
+      
+      /* padding: 1.75rem 1.5rem; */
+      /* margin-left: 10px; */
+      /* background-color: brown;
+      height: 0%;
+      padding-bottom: 5%;
+      width: 1%;
+    } */ 
+      
+      
+      
+    /* button {
+        border: none;
+        outline: none;
+        border-radius: 20px;
+        padding: 1.75rem 1.5rem;
+        
+        margin-left: 10px;
+    } */
+    .planeButton{
+      font-size: 1.75rem;
+      margin: 0rem 0rem;
+      padding: 0rem 0rem;
+      border: none;
+      
+      
+      }
+    
+    .planeButton:hover{
+      background-color:white;
+      font-size: 1.99rem;
+      margin: 0rem 0rem;
+      padding: 0rem 0rem;
+      border: none;
+      background-color: white;
+      box-shadow : 0.8vw 0.9vw 1vw rgba(0,0,0, 0.1);
+      }
+    
+    .actualMessage {
+      background: rgba(211, 208, 208, 0.533);
+      backdrop-filter: blur(2vw);
+      /* -webkit-backdrop-filter: blur(6px); */
+      border-radius: 3vw; /* Responsive rounded corners */
+      box-shadow:  0.8vw 0.9vw 1vw rgba(0,0,0, 0.1); /* Responsive shadow */
+      width: auto;
+      height: auto;
+      padding-left: 1vw;  /* Space on the left */
+      padding-right: 1vw; /* Space on the right */
+      /* background-color: blue; */
+      display:inline-block;
+      text-align: center;
+      border: .5px solid rgb(90, 81, 81);
+    }
+    .uploadIcon{
+      font-weight: bold;
+      font-size: 1.25rem;
+      border-radius: 40%;
+    }
+    .uploadIcon:hover{
+      font-weight: bold;
+      font-size: 1.352rem;
+      border-radius: 40%;
+    }
+    .fileDetails{
+      font-size: 1%;
+      background-color: #fff;
+      color: #121212;
+      height: 2rem;
+      width: 4rem;
+    }
+    
+  
+  
+  }
+  
+  
+  
