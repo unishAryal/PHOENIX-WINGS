@@ -6,13 +6,14 @@ import { io, Socket } from "socket.io-client";
 
 interface SocketContextValue {
   emit: any;
-  socket: Socket | null;
+  socket: Socket | any | null;
   setSocket: (socket: Socket | null) => void;
 }
 
 const defaultContextValue: SocketContextValue = {
   socket: null,
-  setSocket: () => {},
+  setSocket: () => { },
+  emit: undefined
 };
 export const useSocket =()=> {
     const socket = useContext(SocketContext);

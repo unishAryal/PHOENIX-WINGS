@@ -1,7 +1,16 @@
 import { useState, useEffect,  useRef } from "react";
 
+interface Player {
+    url: MediaStream;
+    muted: boolean;
+    playing: boolean;
+  }
+  interface Players {
+    [key: string]: Player;
+  }
+
 const userMediaStream = () => {
-    const [state, setState] = useState<MediaStream | null>(null);
+    const [state, setState] = useState<MediaStream | boolean >(); 
     const isStreamSet = useRef<boolean>(false);
 
     useEffect(() => {
@@ -22,7 +31,7 @@ const userMediaStream = () => {
     }, []);
 
     return {
-        stream :state as MediaStream | null
+        stream :state? state: " cannot get the video"
 };
 }
 export default userMediaStream;

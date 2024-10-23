@@ -1,5 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
+
+import { useEffect } from "react";
 import usePeer from "@/hooks/usePeer";
 import { useSocket } from "@/context/VideoSocketContext";
 import userMediaStream from "@/hooks/useMediaStream";
@@ -18,27 +19,32 @@ import {
 import styles from "@/styles/video.module.css";
 import { useParams } from "next/navigation";
 
-const Room = () => {
+interface Player {
+  url: MediaStream;
+  muted: boolean;
+  playing: boolean;
+}
+
+const Room: React.FC = () => {
   const { socket } = useSocket();
-  const {roomId} = useParams().roomId;
+  const params = useParams<{ roomId: string }>();
+  const roomId = params.roomId;
   const { peer, myId } = usePeer();
   const { stream } = userMediaStream();
-  // setPlayers will be the object
-  const { players,  setPlayers } =
-    useVideoPlayer(myId, roomId);
+  const { players, setPlayers, myPlayer, otherPlayers } = useVideoPlayer(myId, roomId);
 
   useEffect(() => { 
-    if (!socket || !peer) return;
+    console.log('my roomId is ', roomId)
+    if (!socket || !peer || !stream) return;
     const handleUserConnected = (newUser: string) => {
       console.log("user connected with userId", newUser);
-
-      const call = peer?.call(newUser, stream );
+      const call = peer.call(newUser, stream);
 
       call.on("stream", (incomingStream) => {
         console.log("Incoming stream from someOne", incomingStream);
-        if (!stream || !myId) return;
+        if (!myId) return;
         console.log("Setting my stream", myId);
-        setPlayers((prev: any) => ({
+        setPlayers((prev) => ({
           ...prev,
           [myId]: {
             url: stream,
@@ -50,24 +56,24 @@ const Room = () => {
     };
     socket.on("userConnected", handleUserConnected);
     return () => {
-      socket?.off("userConnected", handleUserConnected);
+      socket.off("userConnected", handleUserConnected);
     };
-  }, [peer, socket, stream]);
+  }, [peer, socket, stream, myId, setPlayers]);
 
   useEffect(() => {
     if (!peer || !stream) return;
     console.log("this is my peerId", peer);
     peer.on("call", (call) => {
       const { peer: callerId } = call;
-      call.answer(stream as MediaStream);
+      call.answer(stream);
 
       call.on("stream", (incomingStream) => {
         console.log("Incoming stream from someone.", callerId);
         console.log("Incoming stream from someOne", incomingStream);
-        setPlayers((prev: any) => ({
+        setPlayers((prev) => ({
           ...prev,
           [callerId]: {
-            url: stream,
+            url: incomingStream,
             muted: true,
             playing: true,
           },
@@ -76,14 +82,10 @@ const Room = () => {
     });
   }, [peer, stream, setPlayers]);
 
-  console.log("setting up stream and this is the stream.", stream);
-  console.log(`my peer id is ${myId}`);
-  console.log(`my socket id is ${socket}`);
-
   useEffect(() => {
     if (!stream || !myId) return;
     console.log("Setting my stream", myId);
-    setPlayers((prev: any) => ({
+    setPlayers((prev) => ({
       ...prev,
       [myId]: {
         url: stream,
@@ -92,24 +94,43 @@ const Room = () => {
       },
     }));
   }, [myId, setPlayers, stream]);
+
+  console.log("setting up stream and this is the stream.", stream);
+  console.log(`my peer id is ${myId}`);
+  console.log(`my socket id is ${socket?.id}`);
+
   return (
     <div className={styles.mainBox}>
       <div className={styles.videoBox}>
         <div className={styles.group}>
-          {Object.keys(players).map((playerId ) => {
-            const { url, muted, playing } = players[playerId];
-            return (
-              <div className={styles.videoComponent}>
-                <VideoPlayer
-                  key = {playerId}
-                  url={url}
-                  muted={muted}
-                  playing={playing}
-                  playerId={""}
-                />
-              </div>
-            );
-          })}
+          {!players ? (
+            <div>Loading...</div>
+          ) : (
+            <>
+              {myPlayer && (
+                <div className={styles.videoComponent}>
+                  <VideoPlayer
+                    key={myId}
+                    url={myPlayer.url}
+                    muted={myPlayer.muted}
+                    playing={myPlayer.playing}
+                    playerId={myId}
+                  />
+                </div>
+              )}
+              
+              {Object.entries(otherPlayers).map(([playerId, player]) => (
+                <div key={playerId} className={styles.videoComponent}>
+                  <VideoPlayer
+                    url={player.url}
+                    muted={player.muted}
+                    playing={player.playing}
+                    playerId={playerId}
+                  />
+                </div>
+              ))}
+            </>
+          )}
         </div>
 
         <div className={styles.controls}>
@@ -142,5 +163,3 @@ const Room = () => {
 };
 
 export default Room;
-
-// reactPlayer is being used to play a video.

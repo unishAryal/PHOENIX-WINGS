@@ -17,8 +17,8 @@ const VideoPlayer: React.FC<VideoPlayerProps> = (props) => {
       url={url as MediaStream}
       muted={muted}
       playing={playing}
-      width="100%"
-      height = "100%"
+      width="55%"
+      height = "50%"
     />
   );
 };
