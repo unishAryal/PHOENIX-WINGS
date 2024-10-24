@@ -5,6 +5,7 @@ import { createContext, useEffect, useState, ReactNode, useContext } from "react
 import { io, Socket } from "socket.io-client";
 
 interface SocketContextValue {
+  [x: string]: any;
   
   socket: Socket | any | null;
   setSocket: (socket: Socket | null) => void;
@@ -16,7 +17,7 @@ const defaultContextValue: SocketContextValue = {
   
 };
 export const useSocket =()=> {
-    const socket = useContext(SocketContext);
+    const socket  = useContext(SocketContext);
     if (socket === undefined ){
         throw new Error(' socket didn"t get its value.')
     }

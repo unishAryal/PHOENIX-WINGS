@@ -11,7 +11,7 @@ interface Players {
   [key: string]: Player;
 }
 
-const useVideoPlayer = (myId: string, roomId: any) => {
+export const useVideoPlayer = (myId: string, roomId: string) => {
     const [players, setPlayers] = useState<Players>({})
     const socket = useSocket()
 
@@ -36,14 +36,22 @@ const useVideoPlayer = (myId: string, roomId: any) => {
           muted: !prev[myId].muted
         }
       }))
-      // socket.emit('user-toggle-audio', myId, roomId)
+      socket.socket.emit('userToggleAudio', myId, roomId)
     }
 
     const toggleVideo = () => {
       console.log("toggled my video")
+      setPlayers((prev) => ({
+        ...prev,
+        [myId]: {
+          ...prev[myId],
+          playing: !prev[myId].playing
+        }
+      }))
+      socket.socket.emit('userToggleVideo', myId, roomId)
     }
 
-    return { players, setPlayers, myPlayer, otherPlayers }
-}
+    
 
-export default useVideoPlayer;
+return { players, setPlayers, myPlayer, otherPlayers, toggleAudio, toggleVideo }
+}

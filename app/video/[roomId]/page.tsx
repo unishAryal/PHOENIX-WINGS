@@ -5,7 +5,8 @@ import usePeer from "@/hooks/usePeer";
 import { useSocket } from "@/context/VideoSocketContext";
 import userMediaStream from "@/hooks/useMediaStream";
 import VideoPlayer from "@/components/videoPlayer/videoPlayer";
-import useVideoPlayer from "@/hooks/useVideoPlayer";
+import { useVideoPlayer } from "@/hooks/useVideoPlayer";
+import Bottom from "@/components/bottom/bottomControls";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -31,10 +32,18 @@ const Room: React.FC = () => {
   const roomId = params.roomId;
   const { peer, myId } = usePeer();
   const { stream } = userMediaStream();
-  const { players, setPlayers, myPlayer, otherPlayers } = useVideoPlayer(myId, roomId);
+  const {
+    players,
+    setPlayers,
+    myPlayer,
+    otherPlayers,
+    toggleAudio,
+    toggleVideo,
+  } = useVideoPlayer(myId, roomId);
 
-  useEffect(() => { 
-    console.log('my roomId is ', roomId)
+  useEffect(() => {
+    console.log("my roomId is ", roomId);
+    console.log("Proof of socket id is not undefined", socket)
     if (!socket || !peer || !stream) return;
     const handleUserConnected = (newUser: string) => {
       console.log("user connected with userId", newUser);
@@ -118,7 +127,7 @@ const Room: React.FC = () => {
                   />
                 </div>
               )}
-              
+
               {Object.entries(otherPlayers).map(([playerId, player]) => (
                 <div key={playerId} className={styles.videoComponent}>
                   <VideoPlayer
@@ -134,24 +143,12 @@ const Room: React.FC = () => {
         </div>
 
         <div className={styles.controls}>
-          <button className={styles.controlButton}>
-            <FontAwesomeIcon icon={faMicrophoneSlash} />
-          </button>
-          <button className={styles.controlButton}>
-            <FontAwesomeIcon icon={faPeopleGroup} />
-          </button>
-          <button className={styles.controlButton}>
-            <FontAwesomeIcon icon={faVideoSlash} />
-          </button>
-          <button className={styles.controlButton}>
-            <FontAwesomeIcon icon={faDisplay} />
-          </button>
-          <button className={styles.controlButton}>
-            <FontAwesomeIcon icon={faHand} />
-          </button>
-          <button className={styles.controlButton}>
-            <FontAwesomeIcon icon={faPhoneSlash} />
-          </button>
+          <Bottom
+            muted={myPlayer?.muted}
+            playing={myPlayer?.playing}
+            toggleAudio={toggleAudio}
+            toggleVideo={toggleVideo}
+          />
         </div>
       </div>
       <div className={styles.chatBox}>

@@ -41,6 +41,18 @@ const SocketHandler = (req, res) => {
                 socket.join(roomId);  // This will allow the user to join the room
                 socket.broadcast.to(roomId).emit('userConnected', userId);  // Notify others in the room
             });
+
+
+            socket.on('userToggleAudio', (userId, roomId) => {
+                socket.join(roomId)
+                socket.broadcast.to(roomId).emit('user-toggle-audio', userId)
+            });
+            
+            socket.on('userToggleVideo', (userId, roomId) => {
+                socket.join(roomId)
+                socket.broadcast.to(roomId).emit('user-toggle-video', userId)
+            });
+
         });
         
         
