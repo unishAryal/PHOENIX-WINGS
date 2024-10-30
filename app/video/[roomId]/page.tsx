@@ -7,18 +7,12 @@ import userMediaStream from "@/hooks/useMediaStream";
 import VideoPlayer from "@/components/videoPlayer/videoPlayer";
 import { useVideoPlayer } from "@/hooks/useVideoPlayer";
 import Bottom from "@/components/bottom/bottomControls";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faMicrophoneSlash,
-  faPeopleGroup,
-  faVideoSlash,
-  faDisplay,
-  faHand,
-  faPhoneSlash,
-} from "@fortawesome/free-solid-svg-icons";
 import styles from "@/styles/video.module.css";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
+
+
+
+
 
 interface Player {
   url: MediaStream;
@@ -32,6 +26,8 @@ const Room: React.FC = () => {
   const roomId = params.roomId;
   const { peer, myId } = usePeer();
   const { stream } = userMediaStream();
+  const searchParams = useSearchParams();
+  const isHost = searchParams.get('isHost') === 'true';
   const {
     players,
     setPlayers,
@@ -39,7 +35,8 @@ const Room: React.FC = () => {
     otherPlayers,
     toggleAudio,
     toggleVideo,
-  } = useVideoPlayer(myId, roomId);
+    
+  } = useVideoPlayer(myId, roomId, isHost);
 
   useEffect(() => {
     console.log("my roomId is ", roomId);
@@ -106,7 +103,7 @@ const Room: React.FC = () => {
 
   console.log("setting up stream and this is the stream.", stream);
   console.log(`my peer id is ${myId}`);
-  console.log(`my socket id is ${socket?.id}`);
+
 
   return (
     <div className={styles.mainBox}>

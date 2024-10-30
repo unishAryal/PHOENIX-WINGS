@@ -11,12 +11,12 @@ const video = () => {
         
             const randomId = uuidv4();
             console.log(`The roomId created is ${randomId}`);
-            router.push(`/video/${randomId}`);
+            router.push(`/video/${randomId}?isHost=true`);
         
     };
    const joinRoom = ()=> {
     if (roomId){
-        router.push(`video/${roomId}`)
+        router.push(`video/${roomId}?isHost=False`)
     }else
     {   alert('Please provide the valid RoomId.')
         console.log('there is an error getting a roomId')}

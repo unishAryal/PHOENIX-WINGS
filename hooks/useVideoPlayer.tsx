@@ -11,7 +11,7 @@ interface Players {
   [key: string]: Player;
 }
 
-export const useVideoPlayer = (myId: string, roomId: string) => {
+export const useVideoPlayer = (myId: string, roomId: string, isHost:boolean) => {
     const [players, setPlayers] = useState<Players>({})
     const socket = useSocket()
 
