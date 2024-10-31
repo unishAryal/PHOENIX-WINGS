@@ -28,6 +28,7 @@ const Room: React.FC = () => {
   const { stream } = userMediaStream();
   const searchParams = useSearchParams();
   const isHost = searchParams.get('isHost') === 'true';
+  console.log('Am I the host ? ', searchParams.get('isHost'))
   const {
     players,
     setPlayers,
@@ -35,6 +36,11 @@ const Room: React.FC = () => {
     otherPlayers,
     toggleAudio,
     toggleVideo,
+    muteParticipants,
+    hideParicipantsVideo,
+    isBlocked,
+    isMuted,
+    
     
   } = useVideoPlayer(myId, roomId, isHost);
 
@@ -42,6 +48,7 @@ const Room: React.FC = () => {
     console.log("my roomId is ", roomId);
     console.log("Proof of socket id is not undefined", socket)
     if (!socket || !peer || !stream) return;
+    
     const handleUserConnected = (newUser: string) => {
       console.log("user connected with userId", newUser);
       const call = peer.call(newUser, stream);
@@ -150,7 +157,15 @@ const Room: React.FC = () => {
       </div>
       <div className={styles.chatBox}>
         <div className={styles.chat}>chat</div>
-        <div className={styles.host}>Host</div>
+        <div className={styles.host}>
+          {isHost && (
+            <>
+              <button onClick={muteParticipants}> {isMuted? "Unmute Others" : "MuteOthers"}</button>
+              <button onClick={hideParicipantsVideo}> {isBlocked ? "BlockVideo" : "ShowVideo"}</button>
+            </>
+
+          )}
+        </div>
       </div>
     </div>
   );
